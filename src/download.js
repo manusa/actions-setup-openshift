@@ -1,4 +1,5 @@
 'use strict';
+
 const tc = require('@actions/tool-cache');
 
 const download = async inputs => {
