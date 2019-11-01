@@ -23,6 +23,11 @@
   "homepage": "https://github.com/manusa/actions-setup-minishift#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
-    "@actions/github": "^1.1.0"
+    "@actions/github": "^1.1.0",
+    "@actions/tool-cache": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "jest": "^24.9.0"
   }
 }
