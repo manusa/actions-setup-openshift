@@ -10,4 +10,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Run Action
-        run: export INPUT_VERSION="v1.34.1" && ./entrypoint.sh
+        run: export INPUT_MINISHIFT_VERSION="v1.34.1" && ./entrypoint.sh

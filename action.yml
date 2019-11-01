@@ -5,7 +5,7 @@ branding:
   icon: circle
   color: red
 inputs:
-  version:
+  minishift version:
     description: 'Version of Minishift to deploy'
     required: true
 runs:
