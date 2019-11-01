@@ -5,9 +5,9 @@ branding:
   icon: circle
   color: red
 inputs:
-  version:
+  minishift version:
     description: 'Version of Minishift to deploy'
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'ubuntu-18.04'
+  main: 'entrypoint.sh'
