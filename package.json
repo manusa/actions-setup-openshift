@@ -1,0 +1,28 @@
+{
+  "name": "github-actions-setup-minishift",
+  "version": "1.0.0",
+  "description": "Set up your GitHub Actions workflow with a specific version of Minishift",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manusa/actions-setup-minishift.git"
+  },
+  "keywords": [
+    "actions",
+    "github",
+    "minishift"
+  ],
+  "author": "Marc Nuri <marc@marcnuri.com> (http://blog.marcnuri.com)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/manusa/actions-setup-minishift/issues"
+  },
+  "homepage": "https://github.com/manusa/actions-setup-minishift#readme",
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^1.1.0"
+  }
+}
