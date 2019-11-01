@@ -1,0 +1,13 @@
+name: 'Setup Minishift'
+description: 'This actions sets up Minishift in your environment'
+author: 'Marc Nuri'
+branding:
+  icon: circle
+  color: red
+inputs:
+  version:
+    description: 'Version of Minishift to deploy'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
