@@ -14,4 +14,4 @@ jobs:
       - name: npm test
         run: npm test
       - name: Run Action
-        run: export INPUT_MINISHIFT_VERSION="v1.34.1" && node src/index.js
+        run: export INPUT_OC_VERSION="v3.11.0" && node src/index.js

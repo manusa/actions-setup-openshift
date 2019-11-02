@@ -1,12 +1,12 @@
-name: 'Setup Minishift'
-description: 'This actions sets up Minishift in your environment'
+name: 'Setup OpenShift Cluster'
+description: 'This actions sets up an OpenShift Cluster in your environment'
 author: 'Marc Nuri'
 branding:
   icon: circle
   color: red
 inputs:
-  minishift version:
-    description: 'Version of Minishift to deploy'
+  oc version:
+    description: 'Version of OpenShift Cluster to deploy'
     required: true
 runs:
   using: 'node12'
