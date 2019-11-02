@@ -1,4 +1,4 @@
-Setup Minishift GitHub Action
+Setup OpenShift GitHub Action
 ===============================
 
 [<img src="https://github.com/manusa/actions-setup-minishift/workflows/Main%20workflow/badge.svg" />](https://github.com/manusa/actions-setup-minishift/actions)

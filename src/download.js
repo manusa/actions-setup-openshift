@@ -10,8 +10,8 @@ const download = async inputs => {
   const tagInfo = await axios.get(tagInfoUrl);
   const downloadUrl = tagInfo.data.assets
     .find(asset =>
-      asset.name.indexOf('linux') > 0
-      && asset.name.indexOf('client') > 0
+      asset.name.indexOf('linux') >= 0
+      && asset.name.indexOf('client') >= 0
     )
     .browser_download_url;
   core.info(`OpenShift Cluster version found at: ${downloadUrl}`);

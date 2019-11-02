@@ -1,5 +1,5 @@
 name: 'Setup OpenShift Cluster'
-description: 'This actions sets up an OpenShift Cluster in your environment'
+description: 'This action sets up an OpenShift Cluster in your environment'
 author: 'Marc Nuri'
 branding:
   icon: circle
