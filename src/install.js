@@ -7,7 +7,7 @@ const core = require('@actions/core');
 
 const install = async minishiftTar => {
   const extractedMinishift = await tc.extractTar(minishiftTar);
-  const minishiftDirectory = `${extractedMinishift}${fs.readdirSync(extractedMinishift)[0]}`;
+  const minishiftDirectory = `${extractedMinishift}/${fs.readdirSync(extractedMinishift)[0]}`;
   child_process.execSync(`chmod +x ${minishiftDirectory}/minishift`);
   core.exportVariable("MINISHIFT_HOME", minishiftDirectory);
   core.addPath(minishiftDirectory);
