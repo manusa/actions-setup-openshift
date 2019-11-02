@@ -5,7 +5,7 @@ const core = require('@actions/core');
 const loadInputs = () => {
   console.log('Loading input variables');
   const result = {};
-  result.minishiftVersion = core.getInput('minishift version', {required: true});
+  result.ocVersion = core.getInput('oc version', {required: true});
   return result;
 };
 

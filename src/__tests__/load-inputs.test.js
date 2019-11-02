@@ -11,14 +11,14 @@ describe('load-inputs module test suite', () => {
     test('Required variables in env, should return valid inputs', () => {
       // Given
       process.env = {
-        INPUT_MINISHIFT_VERSION: 'v1.33.7'
+        INPUT_OC_VERSION: 'v1.33.7'
       };
       // When
       const result = loadInputs();
       // Then
       expect(result).to.eql(
         {
-          minishiftVersion: 'v1.33.7'
+          ocVersion: 'v1.33.7'
         })
     });
     test('Required variables NOT in env, should throw error', () => {
@@ -26,7 +26,7 @@ describe('load-inputs module test suite', () => {
       process.env = {
       };
       // When - Then
-      expect(loadInputs).to.throw('Input required and not supplied: minishift version');
+      expect(loadInputs).to.throw('Input required and not supplied: oc version');
     });
   });
 });

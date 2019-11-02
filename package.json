@@ -1,7 +1,7 @@
 {
   "name": "github-actions-setup-minishift",
   "version": "1.0.0",
-  "description": "Set up your GitHub Actions workflow with a specific version of Minishift",
+  "description": "Set up your GitHub Actions workflow with a specific version of OpenShift Cluster",
   "main": "src/index.js",
   "scripts": {
     "test": "jest --passWithNoTests"
@@ -13,7 +13,8 @@
   "keywords": [
     "actions",
     "github",
-    "minishift"
+    "openshift",
+    "oc"
   ],
   "author": "Marc Nuri <marc@marcnuri.com> (http://blog.marcnuri.com)",
   "license": "Apache-2.0",
@@ -24,7 +25,8 @@
   "dependencies": {
     "@actions/core": "^1.1.1",
     "@actions/github": "^1.1.0",
-    "@actions/tool-cache": "^1.1.2"
+    "@actions/tool-cache": "^1.1.2",
+    "axios": "^0.19.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
