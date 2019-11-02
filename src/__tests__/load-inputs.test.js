@@ -1,6 +1,3 @@
-const chai = require('chai');
-const expect = chai.expect;
-
 describe('load-inputs module test suite', () => {
   let loadInputs;
   beforeEach(() => {
@@ -16,7 +13,7 @@ describe('load-inputs module test suite', () => {
       // When
       const result = loadInputs();
       // Then
-      expect(result).to.eql(
+      expect(result).toEqual(
         {
           ocVersion: 'v1.33.7'
         })
@@ -26,7 +23,7 @@ describe('load-inputs module test suite', () => {
       process.env = {
       };
       // When - Then
-      expect(loadInputs).to.throw('Input required and not supplied: oc version');
+      expect(loadInputs).toThrow('Input required and not supplied: oc version');
     });
   });
 });

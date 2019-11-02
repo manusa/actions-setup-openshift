@@ -1,12 +1,12 @@
-name: 'Setup OpenShift Cluster'
-description: 'This actions sets up an OpenShift Cluster in your environment'
+name: 'Setup OKD OpenShift Cluster'
+description: 'This action sets up an OKD OpenShift Cluster in your environment'
 author: 'Marc Nuri'
 branding:
   icon: circle
   color: red
 inputs:
   oc version:
-    description: 'Version of OpenShift Cluster to deploy'
+    description: 'Version of OKD OpenShift to deploy'
     required: true
 runs:
   using: 'node12'
