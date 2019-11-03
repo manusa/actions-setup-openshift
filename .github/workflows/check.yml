@@ -13,5 +13,7 @@ jobs:
         uses: actions/setup-node@master
       - name: NPM install
         run: npm install
-      - name: NPM test
+      - name: Check Format
+        run: npm run format-check
+      - name: Unit tests
         run: npm test
