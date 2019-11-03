@@ -8,7 +8,7 @@ const loadInputs = require('./load-inputs');
 const download = require('./download');
 const install = require('./install');
 
-const run = async () =>{
+const run = async () => {
   checkEnvironment();
   configureDocker();
   const downloadedFile = await download(loadInputs());

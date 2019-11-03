@@ -18,10 +18,13 @@ describe('configure-docker module test suite', () => {
       "sudo sed -i '/ExecStart=/c\\ExecStart=\\/usr\\/bin\\/dockerd -H fd:\\/\\/ --insecure-registry 172.30.0.0\\/16' /lib/systemd/system/docker.service"
     );
     expect(child_process.execSync).toHaveBeenCalledWith(
-      'sudo mount --make-shared /');
+      'sudo mount --make-shared /'
+    );
     expect(child_process.execSync).toHaveBeenCalledWith(
-      'sudo systemctl daemon-reload');
+      'sudo systemctl daemon-reload'
+    );
     expect(child_process.execSync).toHaveBeenCalledWith(
-      'sudo service docker restart');
+      'sudo service docker restart'
+    );
   });
 });
