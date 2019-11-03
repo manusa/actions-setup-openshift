@@ -41,7 +41,7 @@
     "skipCI": true,
     "hooks": {
       "pre-commit": "npm run format",
-      "post-commit": "git rm --cached -r node_modules/ &&npm prune --production && git add node_modules/* && git commit -m \"Husky commit - remove devDependencies from node_modules\""
+      "post-commit": "git rm --cached -r node_modules/ && npm prune --production && git add node_modules/* && git commit -m \"Husky commit - remove devDependencies from node_modules\" && npm install"
     }
   }
 }
