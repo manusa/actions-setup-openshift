@@ -13,15 +13,13 @@ describe('load-inputs module test suite', () => {
       // When
       const result = loadInputs();
       // Then
-      expect(result).toEqual(
-        {
-          ocVersion: 'v1.33.7'
-        })
+      expect(result).toEqual({
+        ocVersion: 'v1.33.7'
+      });
     });
     test('Required variables NOT in env, should throw error', () => {
       // Given
-      process.env = {
-      };
+      process.env = {};
       // When - Then
       expect(loadInputs).toThrow('Input required and not supplied: oc version');
     });

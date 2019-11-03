@@ -14,13 +14,16 @@ describe('download module test suite', () => {
   });
   test('download, should download valid Linux version', async () => {
     // Given
-    const inputs = { ocVersion: 'v1.33.7' };
+    const inputs = {ocVersion: 'v1.33.7'};
     axios.get.mockImplementationOnce(async () => ({
       data: {
         assets: [
-          { name: 'client-windows.tar.gz', browser_download_url: 'http://invalid' },
-          { name: 'client-linux.tar.gz', browser_download_url: 'http://valid' },
-          { name: 'server-linux.tar.gz', browser_download_url: 'http://invalid' }
+          {
+            name: 'client-windows.tar.gz',
+            browser_download_url: 'http://invalid'
+          },
+          {name: 'client-linux.tar.gz', browser_download_url: 'http://valid'},
+          {name: 'server-linux.tar.gz', browser_download_url: 'http://invalid'}
         ]
       }
     }));
@@ -29,8 +32,8 @@ describe('download module test suite', () => {
     await download(inputs);
     // Then
     expect(axios.get).toHaveBeenCalledWith(
-      'https://api.github.com/repos/openshift/origin/releases/tags/v1.33.7');
+      'https://api.github.com/repos/openshift/origin/releases/tags/v1.33.7'
+    );
     expect(tc.downloadTool).toHaveBeenCalledWith('http://valid');
   });
-
 });

@@ -14,15 +14,23 @@ is supported._
 ### Basic
 
 ```yaml
-steps:
-  - name: Checkout
-    uses: actions/checkout@v1
-  - name: Setup OpenShift
-    uses: manusa/actions-publish-openshift@v1.0.0
-    with:
-      oc version: 'v3.11.0'
-  - name: Interact with the cluster
-    run: oc cluster status
+name: Example workflow
+
+on: [push]
+
+jobs:
+  example:
+    name: Example OpenShift Cluster interaction
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup OpenShift
+        uses: manusa/actions-publish-openshift@v1.0.0
+        with:
+          oc version: 'v3.11.0'
+      - name: Interact with the cluster
+        run: oc cluster status
 ```
 
 ### Required input parameters
