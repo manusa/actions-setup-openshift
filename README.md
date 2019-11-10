@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Setup OpenShift
-        uses: manusa/actions-publish-openshift@v1.0.0
+        uses: manusa/actions-setup-openshift@v1.0.0
         with:
           oc version: 'v3.11.0'
       - name: Interact with the cluster
