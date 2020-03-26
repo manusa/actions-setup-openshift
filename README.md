@@ -26,9 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Setup OpenShift
-        uses: manusa/actions-setup-openshift@v1.0.0
+        uses: manusa/actions-setup-openshift@v1.0.1
         with:
           oc version: 'v3.11.0'
+          github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Interact with the cluster
         run: oc cluster status
 ```
@@ -39,6 +40,11 @@ jobs:
 | --------- | ----------- |
 | `oc version` | OpenShift [version](https://github.com/openshift/origin/releases) to deploy |
 
+### Optional input parameters
+
+| Parameter | Description |
+| --------- | ----------- |
+| `github token` | GITHUB_TOKEN secret value to access GitHub REST API with an unlimited number of requests |
 ## License
 
 The scripts and documentation in this project are released under the [Apache 2.0](./LICENSE).
