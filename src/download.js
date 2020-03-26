@@ -7,12 +7,14 @@ const tc = require('@actions/tool-cache');
 const download = async inputs => {
   core.info(`Downloading OpenShift Cluster ${inputs.ocVersion}`);
   const tagInfoUrl = `https://api.github.com/repos/openshift/origin/releases/tags/${inputs.ocVersion}`;
-  const tagInfo = await axios.axios({
+  const headers = {};
+  if (inputs.githubToken) {
+    headers.Authorization = `token ${inputs.githubToken}`
+  }
+  const tagInfo = await axios({
     method: 'GET',
     url: tagInfoUrl,
-    headers: {
-      Authorization: `token ${process.env.GITHUB_TOKEN}`
-    }
+    headers
   });
   const downloadUrl = tagInfo.data.assets.find(
     asset =>

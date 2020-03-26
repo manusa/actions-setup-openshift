@@ -8,13 +8,15 @@ describe('load-inputs module test suite', () => {
     test('Required variables in env, should return valid inputs', () => {
       // Given
       process.env = {
-        INPUT_OC_VERSION: 'v1.33.7'
+        INPUT_OC_VERSION: 'v1.33.7',
+        INPUT_GITHUB_TOKEN: 'secret-token'
       };
       // When
       const result = loadInputs();
       // Then
       expect(result).toEqual({
-        ocVersion: 'v1.33.7'
+        ocVersion: 'v1.33.7',
+        githubToken: 'secret-token'
       });
     });
     test('Required variables NOT in env, should throw error', () => {
