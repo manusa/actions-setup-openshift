@@ -8,7 +8,8 @@ inputs:
   oc version:
     description: 'Version of OKD OpenShift to deploy'
     required: true
-  github token: 'GITHUB_TOKEN to be able to perform requests to GH REST API (with no limit)'
+  github token:
+    description: 'GITHUB_TOKEN to be able to perform requests to GH REST API (with no limit)'
 runs:
   using: 'node12'
   main: 'src/index.js'
