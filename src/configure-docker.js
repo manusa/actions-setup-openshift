@@ -12,6 +12,13 @@ const configureDocker = () => {
   child_process.execSync('sudo mount --make-shared /');
   child_process.execSync('sudo systemctl daemon-reload');
   child_process.execSync('sudo service docker restart');
+  child_process.execSync('sudo apt-get install -y firewalld && sudo ufw disable');
+  child_process.execSync('sudo firewall-cmd --permanent --new-zone dockerc');
+  child_process.execSync('sudo firewall-cmd --permanent --zone dockerc --add-source $(docker network inspect -f "{{range .IPAM.Config }}{{ .Subnet }}{{end}}" bridge)');
+  child_process.execSync('sudo firewall-cmd --permanent --zone dockerc --add-port 8443/tcp');
+  child_process.execSync('sudo firewall-cmd --permanent --zone dockerc --add-port 53/udp');
+  child_process.execSync('sudo firewall-cmd --permanent --zone dockerc --add-port 8053/udp');
+  child_process.execSync('sudo firewall-cmd --reload');
 };
 
 module.exports = configureDocker;
