@@ -8,6 +8,8 @@ inputs:
   oc version:
     description: 'Version of OKD OpenShift to deploy'
     required: true
+  dns ip:
+    description: 'External DNS server IP to use in node-config.yaml'
   github token:
     description: 'GITHUB_TOKEN to be able to perform requests to GH REST API (with no limit)'
 runs:

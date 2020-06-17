@@ -13,9 +13,9 @@ describe('configure-docker module test suite', () => {
     // When
     configureDocker();
     // Then
-    expect(child_process.execSync).toHaveBeenCalledTimes(11);
+    expect(child_process.execSync).toHaveBeenCalledTimes(4);
     expect(child_process.execSync).toHaveBeenCalledWith(
-      "sudo sed -i '/ExecStart=/c\\ExecStart=\\/usr\\/bin\\/dockerd -H fd:\\/\\/ --insecure-registry 172.30.0.0\\/16' /lib/systemd/system/docker.service"
+      "sudo sed -i '/ExecStart=/c\\ExecStart=\\/usr\\/bin\\/dockerd -H fd:\\/\\/ --dns 8.8.8.8 --insecure-registry 172.30.0.0\\/16' /lib/systemd/system/docker.service"
     );
     expect(child_process.execSync).toHaveBeenCalledWith(
       'sudo mount --make-shared /'

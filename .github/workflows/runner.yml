@@ -6,6 +6,10 @@ jobs:
   main:
     name: Runner
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        openshift: [v3.11.0,v3.9.0]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -14,7 +18,13 @@ jobs:
       - name: Test Action
         uses: ./
         with:
-          oc version: v3.11.0
+          oc version: ${{ matrix.openshift }}
+          dns ip: 1.1.1.1
           github token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Validate environment
-        run: oc cluster status
+      - name: Validate environment + Internet Access + DNS
+        run: |
+          cat /home/runner/work/actions-setup-openshift/actions-setup-openshift/openshift.local.clusterup/node/node-config.yaml
+          oc run ubi --image=registry.access.redhat.com/ubi8/ubi-minimal --restart=Never -- sh -c 'sleep 3600'
+          while (echo && oc get pods | grep -v -E "(Running|Completed|STATUS)");do sleep 5; done
+          oc exec ubi -- cat /etc/resolv.conf
+          oc exec ubi -- curl google.com

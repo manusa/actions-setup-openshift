@@ -11,8 +11,9 @@ const install = require('./install');
 const run = async () => {
   checkEnvironment();
   configureDocker();
-  const downloadedFile = await download(loadInputs());
-  await install(downloadedFile);
+  const inputs = loadInputs();
+  const openshiftTar = await download(inputs);
+  await install({openshiftTar, inputs});
 };
 
 process.on('unhandledRejection', errorHandler);

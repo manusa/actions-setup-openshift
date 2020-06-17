@@ -9,14 +9,16 @@ describe('load-inputs module test suite', () => {
       // Given
       process.env = {
         INPUT_OC_VERSION: 'v1.33.7',
-        INPUT_GITHUB_TOKEN: 'secret-token'
+        INPUT_GITHUB_TOKEN: 'secret-token',
+        INPUT_DNS_IP: '1.3.3.7'
       };
       // When
       const result = loadInputs();
       // Then
       expect(result).toEqual({
         ocVersion: 'v1.33.7',
-        githubToken: 'secret-token'
+        githubToken: 'secret-token',
+        dnsIp: '1.3.3.7'
       });
     });
     test('Required variables NOT in env, should throw error', () => {

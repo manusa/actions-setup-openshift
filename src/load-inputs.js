@@ -7,6 +7,7 @@ const loadInputs = () => {
   const result = {};
   result.ocVersion = core.getInput('oc version', {required: true});
   result.githubToken = core.getInput('github token');
+  result.dnsIp = core.getInput('dns ip');
   return result;
 };
 
