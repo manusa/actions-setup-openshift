@@ -5,10 +5,10 @@ const tc = require('@actions/tool-cache');
 const fs = require('fs');
 const {execSync, logExecSync} = require('./exec');
 
-const getNodeConfigYaml= cwd => {
-  const inCwd = `${cwd}/openshift.local.clusterup/node/node-config.yaml`;
-  const inHome = '~/openshift.local.clusterup/node/node-config.yaml';
-  const inTmp = '/tmp/openshift.local.clusterup/node/node-config.yaml';
+const getClusterDir = cwd => {
+  const inCwd = `${cwd}/openshift.local.clusterup`;
+  const inHome = '~/openshift.local.clusterup';
+  const inTmp = '/tmp/openshift.local.clusterup';
   return [inCwd, inHome, inTmp].find(f => fs.existsSync(f));
 };
 
@@ -16,12 +16,15 @@ const startCluster = () => logExecSync('oc cluster up --routing-suffix="127.0.0.
 
 const stopCluster = () => logExecSync('oc cluster down');
 
-const replaceDnsIp = (nodeConfigYaml, dnsIp) => {
-  core.info(`Replacing dnsIp field in ${nodeConfigYaml}`);
+const replaceDnsIp = (clusterDir, dnsIp) => {
+  core.info(`Replacing dnsIp field in ${clusterDir}`);
+  const nodeConfigYaml =  `${clusterDir}/node/node-config.yaml`;
   const config = fs.readFileSync(nodeConfigYaml, 'utf8');
   const updatedConfig = config.replace("dnsIP: \"\"", `dnsIp: "${dnsIp}"`);
-  core.info(`Contents of config is:\n${updatedConfig}`);
   fs.writeFileSync(nodeConfigYaml, updatedConfig);
+  const kubeDnsResolvConf = `${clusterDir}/kubedns/resolv.conf`;
+  const customResolv = `nameserver ${dnsIp}\n`;
+  fs.writeFileSync(kubeDnsResolvConf, customResolv);
 };
 
 const install = async ({openshiftTar, inputs}) => {
@@ -36,10 +39,10 @@ const install = async ({openshiftTar, inputs}) => {
   core.exportVariable('OPENSHIFT_HOME', openshiftDirectory);
   core.addPath(openshiftDirectory);
   startCluster();
-  const nodeConfigYaml = getNodeConfigYaml(cwd)
-  if (inputs.dnsIp && nodeConfigYaml) {
+  const clusterDir = getClusterDir(cwd);
+  if (inputs.dnsIp && clusterDir) {
     stopCluster();
-    replaceDnsIp(nodeConfigYaml, inputs.dnsIp);
+    replaceDnsIp(clusterDir, inputs.dnsIp);
     startCluster();
   }
   execSync('oc login -u system:admin');
