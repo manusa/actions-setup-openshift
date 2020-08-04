@@ -45,6 +45,7 @@ jobs:
 | Parameter | Description |
 | --------- | ----------- |
 | `dns ip`  | External DNS server IP to use in node-config.yaml |
+| `enable`  | A list of components to enable (comma separated) |
 | `github token` | GITHUB_TOKEN secret value to access GitHub REST API with an unlimited number of requests |
 ## License
 

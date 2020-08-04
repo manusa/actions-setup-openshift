@@ -12,7 +12,15 @@ const getClusterDir = cwd => {
   return [inCwd, inHome, inTmp].find(f => fs.existsSync(f));
 };
 
-const startCluster = () => logExecSync('oc cluster up --routing-suffix="127.0.0.1.${OC_DOMAIN:-nip.io}"');
+const startCluster = (enable) => {
+  let enableFlags = ''
+  if (enable) {
+    enableFlags = enable.split(',').map(el => `--enable=${el.trim()}`).join(' ');
+  }
+  const ocClusterUpCmd = `oc cluster up --routing-suffix="127.0.0.1.\${OC_DOMAIN:-nip.io}" ${enableFlags}`
+  core.info(`Starting cluster with: ${ocClusterUpCmd}`);
+  logExecSync(ocClusterUpCmd)
+}
 
 const stopCluster = () => logExecSync('oc cluster down');
 
@@ -38,12 +46,12 @@ const install = async ({openshiftTar, inputs}) => {
   execSync(`chmod +x ${openshiftDirectory}/oc`);
   core.exportVariable('OPENSHIFT_HOME', openshiftDirectory);
   core.addPath(openshiftDirectory);
-  startCluster();
+  startCluster(inputs.enable);
   const clusterDir = getClusterDir(cwd);
   if (inputs.dnsIp && clusterDir) {
     stopCluster();
     replaceDnsIp(clusterDir, inputs.dnsIp);
-    startCluster();
+    startCluster(inputs.enable);
   }
   execSync('oc login -u system:admin');
   const openshiftVersion = execSync(`oc version`)
