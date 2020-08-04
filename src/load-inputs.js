@@ -8,6 +8,7 @@ const loadInputs = () => {
   result.ocVersion = core.getInput('oc version', {required: true});
   result.githubToken = core.getInput('github token');
   result.dnsIp = core.getInput('dns ip');
+  result.enable = core.getInput('enable');
   return result;
 };
 

@@ -10,7 +10,8 @@ describe('load-inputs module test suite', () => {
       process.env = {
         INPUT_OC_VERSION: 'v1.33.7',
         INPUT_GITHUB_TOKEN: 'secret-token',
-        INPUT_DNS_IP: '1.3.3.7'
+        INPUT_DNS_IP: '1.3.3.7',
+        INPUT_ENABLE: 'centos-imagestreams,persistent-volumes,registry,router'
       };
       // When
       const result = loadInputs();
@@ -18,7 +19,8 @@ describe('load-inputs module test suite', () => {
       expect(result).toEqual({
         ocVersion: 'v1.33.7',
         githubToken: 'secret-token',
-        dnsIp: '1.3.3.7'
+        dnsIp: '1.3.3.7',
+        enable: 'centos-imagestreams,persistent-volumes,registry,router'
       });
     });
     test('Required variables NOT in env, should throw error', () => {

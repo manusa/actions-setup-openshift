@@ -10,6 +10,8 @@ inputs:
     required: true
   dns ip:
     description: 'External DNS server IP to use in node-config.yaml'
+  enable:
+    description: 'A list of components to enable (comma separated)'
   github token:
     description: 'GITHUB_TOKEN to be able to perform requests to GH REST API (with no limit)'
 runs:
