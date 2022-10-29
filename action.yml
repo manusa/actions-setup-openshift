@@ -15,5 +15,5 @@ inputs:
   github token:
     description: 'GITHUB_TOKEN to be able to perform requests to GH REST API (with no limit)'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'src/index.js'
