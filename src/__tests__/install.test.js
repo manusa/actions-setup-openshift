@@ -17,7 +17,8 @@ describe('install module test suite', () => {
       existsSync: jest.fn(() => true),
       readdirSync: jest.fn(() => ['oc-dir']),
       readFileSync: jest.fn(() => ''),
-      writeFileSync: jest.fn()
+      writeFileSync: jest.fn(),
+      promises: {}
     }));
     jest.mock('axios');
     exec = require('../exec');
