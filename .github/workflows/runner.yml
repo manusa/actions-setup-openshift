@@ -9,7 +9,7 @@ on:
 jobs:
   run:
     name: Run (defaults)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -29,7 +29,7 @@ jobs:
           oc version | grep 'Server https://'
   run-dns-ip:
     name: Run with dns-Ip
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -55,7 +55,7 @@ jobs:
           oc exec ubi -- curl google.com
   run-with-components:
     name: Run with Components + dnsIp
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -75,50 +75,3 @@ jobs:
       - name: Validate components
         run: |
           oc api-resources | grep 'servicecatalog.k8s.io'
-
-  legacy-run:
-    name: Legacy Run (defaults)
-    runs-on: ubuntu-18.04
-    strategy:
-      fail-fast: false
-      matrix:
-        openshift: [v3.9.0]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@master
-      - name: Test Action
-        uses: ./
-        with:
-          oc version: ${{ matrix.openshift }}
-          github token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Validate run
-        run: |
-          oc version | grep 'Server https://'
-  legacy-run-dns-ip:
-    name: Legacy Run with dns-Ip
-    runs-on: ubuntu-18.04
-    strategy:
-      fail-fast: false
-      matrix:
-        openshift: [v3.9.0]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@master
-      - name: Test Action
-        uses: ./
-        with:
-          oc version: ${{ matrix.openshift }}
-          dns ip: 1.1.1.1
-          github token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Validate environment + Internet Access + DNS
-        run: |
-          cat /home/runner/work/actions-setup-openshift/actions-setup-openshift/openshift.local.clusterup/node/node-config.yaml || true
-          cat /home/runner/work/actions-setup-openshift/actions-setup-openshift/openshift.local.clusterup/kubedns/resolv.conf || true
-          oc run ubi --image=registry.access.redhat.com/ubi8/ubi-minimal --restart=Never -- sh -c 'sleep 3600'
-          while (echo && oc get pods | grep -v -E "(Running|Completed|STATUS)");do sleep 5; done
-          oc exec ubi -- cat /etc/resolv.conf
-          oc exec ubi -- curl google.com
