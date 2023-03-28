@@ -21,7 +21,7 @@ on: [push]
 jobs:
   example:
     name: Example OpenShift Cluster interaction
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v1
