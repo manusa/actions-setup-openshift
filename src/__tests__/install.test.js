@@ -27,12 +27,49 @@ describe('install module test suite', () => {
   });
   describe('install', () => {
     let openshiftTar;
+    let inputs;
     beforeEach(() => {
       openshiftTar = 'openshift.tar';
+      inputs = {
+        ocVersion: 'v3.11.0'
+      };
     });
-    test('no inputs, should launch standard cluster up command', async () => {
-      // Given
-      const inputs = {};
+    describe('prerequisites', () => {
+      beforeEach(async () => {
+        await install({openshiftTar, inputs});
+      });
+      test('origin-control-plane image is pulled from Quay.io', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker pull quay.io/openshift/origin-control-plane:v3.11.0'
+        );
+      });
+      test('origin-cli image is pulled from Quay.io', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker pull quay.io/openshift/origin-cli:v3.11.0'
+        );
+      });
+      test('origin-node image is pulled from Quay.io', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker pull quay.io/openshift/origin-node:v3.11.0'
+        );
+      });
+      test('origin-control-plane image is tagged without registry', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker tag quay.io/openshift/origin-control-plane:v3.11.0 openshift/origin-control-plane:v3.11'
+        );
+      });
+      test('origin-node image is tagged without registry', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker tag quay.io/openshift/origin-node:v3.11.0 openshift/origin-node:v3.11'
+        );
+      });
+      test('origin-cli image is tagged without registry', async () => {
+        expect(exec.logExecSync).toHaveBeenCalledWith(
+          'docker tag quay.io/openshift/origin-cli:v3.11.0 openshift/origin-cli:v3.11'
+        );
+      });
+    });
+    test('defaults, should launch standard cluster up command', async () => {
       // When
       await install({openshiftTar, inputs});
       // Then
@@ -54,9 +91,7 @@ describe('install module test suite', () => {
     });
     test('withDnsIp, should launch standard cluster up command + stop + fix dns and relaunch', async () => {
       // Given
-      const inputs = {
-        dnsIp: '1.1.1.1'
-      };
+      inputs.dnsIp = '1.1.1.1';
       // When
       await install({openshiftTar, inputs});
       // Then
@@ -79,9 +114,7 @@ describe('install module test suite', () => {
     });
     test('enable, should launch standard cluster up command with extra arguments to enable components', async () => {
       // Given
-      const inputs = {
-        enable: 'component1,-component2,component-3'
-      };
+      inputs.enable = 'component1,-component2,component-3';
       // When
       await install({openshiftTar, inputs});
       // Then

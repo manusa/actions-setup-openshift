@@ -3,6 +3,7 @@
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
 const fs = require('fs');
+const SemVer = require('semver');
 const {execSync, logExecSync} = require('./exec');
 
 const getClusterDir = cwd => {
@@ -32,7 +33,19 @@ const replaceDnsIp = (clusterDir, dnsIp) => {
   fs.writeFileSync(kubeDnsResolvConf, customResolv);
 };
 
+const prePullImages = version => {
+  for (const image of ['origin-control-plane', 'origin-cli', 'origin-node']) {
+    logExecSync(`docker pull quay.io/openshift/${image}:${version}`);
+    const semver = new SemVer(version);
+    const major = semver.major;
+    const minor = semver.minor;
+    logExecSync(`docker tag quay.io/openshift/${image}:${version} openshift/${image}:v${major}.${minor}`);
+  }
+};
+
 const install = async ({openshiftTar, inputs}) => {
+  core.info('Pulling required images from Quay');
+  prePullImages(inputs.ocVersion);
   core.info('Installing OpenShift Cluster');
   const cwd = execSync(`pwd`).toString().replace(/[\n\r]/g, '');
   core.info(`Current working directory: ${cwd}`);
