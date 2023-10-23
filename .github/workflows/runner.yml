@@ -16,7 +16,7 @@ jobs:
         openshift: [v3.11.0]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@master
       - name: Test Action
@@ -36,7 +36,7 @@ jobs:
         openshift: [v3.11.0]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@master
       - name: Test Action
@@ -62,7 +62,7 @@ jobs:
         openshift: [v3.11.0]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@master
       - name: Test Action
